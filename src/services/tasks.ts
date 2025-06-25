@@ -38,7 +38,7 @@ export const tasksService = {
       .order('created_at', { ascending: false });
     
     if (error) throw error;
-    return data || [];
+    return (data as TaskWithRelations[]) || [];
   },
 
   async getById(id: string): Promise<TaskWithRelations | null> {
@@ -53,7 +53,7 @@ export const tasksService = {
       .maybeSingle();
     
     if (error) throw error;
-    return data;
+    return data as TaskWithRelations | null;
   },
 
   async create(task: Omit<Task, 'id' | 'created_at' | 'updated_at'>): Promise<Task> {
@@ -64,7 +64,7 @@ export const tasksService = {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Task;
   },
 
   async update(id: string, updates: Partial<Task>): Promise<Task> {
@@ -76,7 +76,7 @@ export const tasksService = {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Task;
   },
 
   async delete(id: string): Promise<void> {

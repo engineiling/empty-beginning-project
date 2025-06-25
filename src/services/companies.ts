@@ -23,7 +23,7 @@ export const companiesService = {
       .order('name');
     
     if (error) throw error;
-    return data || [];
+    return (data as Company[]) || [];
   },
 
   async getById(id: string): Promise<Company | null> {
@@ -34,7 +34,7 @@ export const companiesService = {
       .maybeSingle();
     
     if (error) throw error;
-    return data;
+    return data as Company | null;
   },
 
   async create(company: Omit<Company, 'id' | 'created_at' | 'updated_at'>): Promise<Company> {
@@ -45,7 +45,7 @@ export const companiesService = {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Company;
   },
 
   async update(id: string, updates: Partial<Company>): Promise<Company> {
@@ -57,7 +57,7 @@ export const companiesService = {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Company;
   },
 
   async delete(id: string): Promise<void> {

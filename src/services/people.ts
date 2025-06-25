@@ -33,7 +33,7 @@ export const peopleService = {
       .order('name');
     
     if (error) throw error;
-    return data || [];
+    return (data as PersonWithCompany[]) || [];
   },
 
   async getById(id: string): Promise<PersonWithCompany | null> {
@@ -47,7 +47,7 @@ export const peopleService = {
       .maybeSingle();
     
     if (error) throw error;
-    return data;
+    return data as PersonWithCompany | null;
   },
 
   async create(person: Omit<Person, 'id' | 'created_at' | 'updated_at'>): Promise<Person> {
@@ -58,7 +58,7 @@ export const peopleService = {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Person;
   },
 
   async update(id: string, updates: Partial<Person>): Promise<Person> {
@@ -70,7 +70,7 @@ export const peopleService = {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Person;
   },
 
   async delete(id: string): Promise<void> {

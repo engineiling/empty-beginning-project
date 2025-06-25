@@ -17,7 +17,7 @@ export const industriesService = {
       .order('name');
     
     if (error) throw error;
-    return data || [];
+    return (data as Industry[]) || [];
   },
 
   async getById(id: string): Promise<Industry | null> {
@@ -28,7 +28,7 @@ export const industriesService = {
       .maybeSingle();
     
     if (error) throw error;
-    return data;
+    return data as Industry | null;
   },
 
   async create(industry: Omit<Industry, 'id' | 'created_at' | 'updated_at'>): Promise<Industry> {
@@ -39,7 +39,7 @@ export const industriesService = {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Industry;
   },
 
   async update(id: string, updates: Partial<Industry>): Promise<Industry> {
@@ -51,7 +51,7 @@ export const industriesService = {
       .single();
     
     if (error) throw error;
-    return data;
+    return data as Industry;
   },
 
   async delete(id: string): Promise<void> {
