@@ -18,7 +18,7 @@ export interface Company {
 export const companiesService = {
   async getAll(): Promise<Company[]> {
     const { data, error } = await supabase
-      .from('companies')
+      .from('companies' as any)
       .select('*')
       .order('name');
     
@@ -28,7 +28,7 @@ export const companiesService = {
 
   async getById(id: string): Promise<Company | null> {
     const { data, error } = await supabase
-      .from('companies')
+      .from('companies' as any)
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -39,7 +39,7 @@ export const companiesService = {
 
   async create(company: Omit<Company, 'id' | 'created_at' | 'updated_at'>): Promise<Company> {
     const { data, error } = await supabase
-      .from('companies')
+      .from('companies' as any)
       .insert([company])
       .select()
       .single();
@@ -50,7 +50,7 @@ export const companiesService = {
 
   async update(id: string, updates: Partial<Company>): Promise<Company> {
     const { data, error } = await supabase
-      .from('companies')
+      .from('companies' as any)
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -62,7 +62,7 @@ export const companiesService = {
 
   async delete(id: string): Promise<void> {
     const { error } = await supabase
-      .from('companies')
+      .from('companies' as any)
       .delete()
       .eq('id', id);
     

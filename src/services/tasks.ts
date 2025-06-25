@@ -29,7 +29,7 @@ export interface TaskWithRelations extends Task {
 export const tasksService = {
   async getAll(): Promise<TaskWithRelations[]> {
     const { data, error } = await supabase
-      .from('tasks')
+      .from('tasks' as any)
       .select(`
         *,
         company:companies(id, name),
@@ -43,7 +43,7 @@ export const tasksService = {
 
   async getById(id: string): Promise<TaskWithRelations | null> {
     const { data, error } = await supabase
-      .from('tasks')
+      .from('tasks' as any)
       .select(`
         *,
         company:companies(id, name),
@@ -58,7 +58,7 @@ export const tasksService = {
 
   async create(task: Omit<Task, 'id' | 'created_at' | 'updated_at'>): Promise<Task> {
     const { data, error } = await supabase
-      .from('tasks')
+      .from('tasks' as any)
       .insert([task])
       .select()
       .single();
@@ -69,7 +69,7 @@ export const tasksService = {
 
   async update(id: string, updates: Partial<Task>): Promise<Task> {
     const { data, error } = await supabase
-      .from('tasks')
+      .from('tasks' as any)
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -81,7 +81,7 @@ export const tasksService = {
 
   async delete(id: string): Promise<void> {
     const { error } = await supabase
-      .from('tasks')
+      .from('tasks' as any)
       .delete()
       .eq('id', id);
     

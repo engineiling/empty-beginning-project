@@ -25,7 +25,7 @@ export interface PersonWithCompany extends Person {
 export const peopleService = {
   async getAll(): Promise<PersonWithCompany[]> {
     const { data, error } = await supabase
-      .from('people')
+      .from('people' as any)
       .select(`
         *,
         company:companies(id, name)
@@ -38,7 +38,7 @@ export const peopleService = {
 
   async getById(id: string): Promise<PersonWithCompany | null> {
     const { data, error } = await supabase
-      .from('people')
+      .from('people' as any)
       .select(`
         *,
         company:companies(id, name)
@@ -52,7 +52,7 @@ export const peopleService = {
 
   async create(person: Omit<Person, 'id' | 'created_at' | 'updated_at'>): Promise<Person> {
     const { data, error } = await supabase
-      .from('people')
+      .from('people' as any)
       .insert([person])
       .select()
       .single();
@@ -63,7 +63,7 @@ export const peopleService = {
 
   async update(id: string, updates: Partial<Person>): Promise<Person> {
     const { data, error } = await supabase
-      .from('people')
+      .from('people' as any)
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -75,7 +75,7 @@ export const peopleService = {
 
   async delete(id: string): Promise<void> {
     const { error } = await supabase
-      .from('people')
+      .from('people' as any)
       .delete()
       .eq('id', id);
     

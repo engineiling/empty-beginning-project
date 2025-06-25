@@ -12,7 +12,7 @@ export interface Industry {
 export const industriesService = {
   async getAll(): Promise<Industry[]> {
     const { data, error } = await supabase
-      .from('industries')
+      .from('industries' as any)
       .select('*')
       .order('name');
     
@@ -22,7 +22,7 @@ export const industriesService = {
 
   async getById(id: string): Promise<Industry | null> {
     const { data, error } = await supabase
-      .from('industries')
+      .from('industries' as any)
       .select('*')
       .eq('id', id)
       .maybeSingle();
@@ -33,7 +33,7 @@ export const industriesService = {
 
   async create(industry: Omit<Industry, 'id' | 'created_at' | 'updated_at'>): Promise<Industry> {
     const { data, error } = await supabase
-      .from('industries')
+      .from('industries' as any)
       .insert([industry])
       .select()
       .single();
@@ -44,7 +44,7 @@ export const industriesService = {
 
   async update(id: string, updates: Partial<Industry>): Promise<Industry> {
     const { data, error } = await supabase
-      .from('industries')
+      .from('industries' as any)
       .update({ ...updates, updated_at: new Date().toISOString() })
       .eq('id', id)
       .select()
@@ -56,7 +56,7 @@ export const industriesService = {
 
   async delete(id: string): Promise<void> {
     const { error } = await supabase
-      .from('industries')
+      .from('industries' as any)
       .delete()
       .eq('id', id);
     
